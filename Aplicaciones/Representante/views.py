@@ -43,33 +43,4 @@ def eliminarRepresentante(request, id):
     messages.success(request, "Representante ELIMINADO correctamente.")
     return redirect('/representante/')
 
-# Mostrar formulario para editar representante
-def editarRepresentante(request, id):
-    representante = Representante.objects.get(id=id)
-    estudiantes = Estudiante.objects.all()
-    return render(request, "representante/editar.html", {
-        "representante": representante,
-        "estudiantes": estudiantes
-    })
 
-# Procesar edición de representante
-def procesarEdicionRepresentante(request, id):
-    id = request.POST.get("id")
-    estudiante_id = request.POST.get("estudiante_id")
-    nombres = request.POST.get("nombres")
-    apellidos = request.POST.get("apellidos")
-    parentesco = request.POST.get("parentesco")
-    telefono = request.POST.get("telefono")
-    correo = request.POST.get("correo")
-
-    representante = Representante.objects.get(id=id)
-    representante.estudiante_id = estudiante_id
-    representante.nombres = nombres
-    representante.apellidos = apellidos
-    representante.parentesco = parentesco
-    representante.telefono = telefono
-    representante.correo = correo
-
-    representante.save()
-    messages.success(request, "Representante EDITADO correctamente.")
-    return redirect('/representante/')
