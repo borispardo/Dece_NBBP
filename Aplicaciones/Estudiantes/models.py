@@ -18,5 +18,5 @@ class Estudiante(models.Model):
     curso = models.CharField(max_length=50)
     historial = models.TextField(blank=True)
 
-     def __str__(self):
-        return f"{self.nombres} {self.apellidos} - {self.curso}"
+def __str__(self):
+    return f"{self.nombres} {self.apellidos} - {self.curso}"
