@@ -27,9 +27,8 @@
                 <div class="mb-3">
                     <label class="form-label fw-bold">Fecha de Nacimiento</label>
                     <input type="date" name="fecha_nacimiento" class="form-control" value="{{ estudiante.fecha_nacimiento|date:'Y-m-d' }}" required>
-                </div>
-
-                <div class="mb-3">
+                </div> 
+                                <div class="mb-3">
                     <label class="form-label fw-bold">Género</label>
                     <select name="genero" class="form-control" required>
                         <option value="">Seleccione...</option>
@@ -73,3 +72,5 @@
     </div>
 </div>
 {% endblock %}
+
+
