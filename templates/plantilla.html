@@ -6,10 +6,25 @@
     <title>DECE</title>
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--Importamos archivo JS de SweetAlert-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
 </head>
 <body>
     {% block contenido %}
     {% endblock %}    
+    
+    {% if messages %}
+      {% for message in messages %}
+        <script>
+          Swal.fire({
+            title: "CONFIRMACIÓN",
+            text: "{{ message }}",
+            icon: "success",
+          });
+        </script>
+      {% endfor %}
+    {% endif %}
+    
 </body>
 </html>

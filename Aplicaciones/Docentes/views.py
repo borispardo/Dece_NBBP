@@ -5,11 +5,11 @@ from django.contrib import messages
 # Listar docentes
 def listaDocentes(request):
     docentes = Docente.objects.all()
-    return render(request, 'docente/inicio.html', {'docentes': docentes})
+    return render(request, 'docentes/inicio.html', {'docentes': docentes})
 
 # Mostrar formulario para nuevo docente
 def nuevoDocente(request):
-    return render(request, 'docente/nuevo.html')
+    return render(request, 'docentes/nuevo.html')
 
 # Guardar docente
 def guardarDocente(request):
@@ -39,7 +39,7 @@ def eliminarDocente(request, id):
 # Mostrar formulario para editar docente
 def editarDocente(request, id):
     docente = get_object_or_404(Docente, id=id)
-    return render(request, 'docente/editar.html', {'docente': docente})
+    return render(request, 'docentes/editar.html', {'docente': docente})
 
 # Procesar edición de docente
 def procesarEdicionDocente(request):
