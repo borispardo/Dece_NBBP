@@ -10,4 +10,4 @@ class Representante(models.Model):
     correo = models.EmailField()
 
     def __str__(self):
-        return f"{self.nombres} {self.apellidos} ({self.parentesco})"
+        return f"{self.nombres} {self.apellidos} ({self.parentesco})" 
