@@ -1,0 +1,74 @@
+{% extends 'plantilla.html' %}
+
+{% block contenido %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8 col-lg-6">
+        <div class="bg-white p-4 rounded shadow-sm border" style="border-color: #dee2e6;">
+            <h3 class="text-center mb-4">Agregar Estudiante</h3>
+            <form action="{% url 'guardar' %}" method="post">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Nombres</label>
+                    <input type="text" name="nombres" class="form-control" placeholder="Nombres" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Apellidos</label>
+                    <input type="text" name="apellidos" class="form-control" placeholder="Apellidos" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Cédula</label>
+                    <input type="text" name="cedula" class="form-control" placeholder="Cédula" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Fecha de Nacimiento</label>
+                    <input type="date" name="fecha_nacimiento" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Género</label>
+                    <select name="genero" class="form-control" required>
+                        <option value="">Seleccione...</option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
+                        <option value="O">Otro</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Dirección</label>
+                    <textarea name="direccion" class="form-control" rows="2" placeholder="Dirección" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Teléfono</label>
+                    <input type="text" name="telefono" class="form-control" placeholder="Teléfono" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Correo</label>
+                    <input type="email" name="correo" class="form-control" placeholder="Correo" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Curso</label>
+                    <input type="text" name="curso" class="form-control" placeholder="Curso" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Historial</label>
+                    <textarea name="historial" class="form-control" rows="3" placeholder="Historial académico"></textarea>
+                </div>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <button type="submit" class="btn btn-outline-primary">Guardar</button>
+                    <a href="{% url 'lista' %}" class="btn btn-outline-danger">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

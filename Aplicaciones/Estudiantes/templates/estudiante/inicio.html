@@ -1,0 +1,59 @@
+{% extends 'plantilla.html' %}
+{% block contenido %}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Listado de Estudiantes</h1>
+
+    <div class="text-end mb-3">
+        <a href="{% url 'nuevo' %}" class="btn btn-outline-success">Agregar Estudiante</a>
+    </div>
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Cédula</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Genero</th>
+                <th>Dirección</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Curso</th>
+                <th>Historial</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for estudiante in estudiantes %}
+            <tr>
+                <td>{{ estudiante.id }}</td>
+                <td>{{ estudiante.nombres }}</td>
+                <td>{{ estudiante.apellidos }}</td>
+                <td>{{ estudiante.cedula }}</td>
+                <td>{{ estudiante.fecha_nacimiento|date:"d/m/Y" }}</td>
+                <td>{{ estudiante.genero }}</td>
+                <td>{{ estudiante.direccion }}</td>
+                <td>{{ estudiante.telefono }}</td>
+                <td>{{ estudiante.correo }}</td>
+                <td>{{ estudiante.curso }}</td>
+                <td>{{ estudiante.historial }}</td>
+
+                <td>
+                    <a href="{% url 'editar' estudiante.id %}" class="btn btn-outline-warning btn-sm">Editar</a>
+                    <a href="{% url 'eliminar' estudiante.id %}" class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar este estudiante?');">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">No hay estudiantes registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="/" class="btn btn-secondary">Volver al menú</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "plantilla.html" %}
+{% block contenido %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8 col-lg-6">
+        <div class="bg-white p-4 rounded shadow-sm border" style="border-color: #dee2e6;">
+            <h3 class="text-center mb-4">Editar Estudiante</h3>
+            <form action="{% url 'procesarEdicion' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ estudiante.id }}">
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Nombres</label>
+                    <input type="text" name="nombres" class="form-control" value="{{ estudiante.nombres }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Apellidos</label>
+                    <input type="text" name="apellidos" class="form-control" value="{{ estudiante.apellidos }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Cédula</label>
+                    <input type="text" name="cedula" class="form-control" value="{{ estudiante.cedula }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Fecha de Nacimiento</label>
+                    <input type="date" name="fecha_nacimiento" class="form-control" value="{{ estudiante.fecha_nacimiento|date:'Y-m-d' }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Género</label>
+                    <select name="genero" class="form-control" required>
+                        <option value="">Seleccione...</option>
+                        <option value="M" {% if estudiante.genero == 'M' %}selected{% endif %}>Masculino</option>
+                        <option value="F" {% if estudiante.genero == 'F' %}selected{% endif %}>Femenino</option>
+                        <option value="O" {% if estudiante.genero == 'O' %}selected{% endif %}>Otro</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Dirección</label>
+                    <textarea name="direccion" class="form-control" rows="2" required>{{ estudiante.direccion }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Teléfono</label>
+                    <input type="text" name="telefono" class="form-control" value="{{ estudiante.telefono }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Correo</label>
+                    <input type="email" name="correo" class="form-control" value="{{ estudiante.correo }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Curso</label>
+                    <input type="text" name="curso" class="form-control" value="{{ estudiante.curso }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Historial</label>
+                    <textarea name="historial" class="form-control" rows="3">{{ estudiante.historial }}</textarea>
+                </div>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <button type="submit" class="btn btn-outline-primary">Guardar Cambios</button>
+                    <a href="{% url 'lista' %}" class="btn btn-outline-danger">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
