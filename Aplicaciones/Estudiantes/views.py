@@ -55,6 +55,7 @@ def editarEstudiante(request, id):
     estudiante = Estudiante.objects.get(id=id)
     return render(request, "estudiante/editar.html", {"estudiante": estudiante})
 
+
 # Procesar edición de estudiante
 def procesarEdicionEstudiante(request, id):
 
