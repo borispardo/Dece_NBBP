@@ -4,7 +4,7 @@
     <div class="col-md-8 col-lg-6">
         <div class="bg-white p-4 rounded shadow-sm border" style="border-color: #dee2e6;">
             <h3 class="text-center mb-4">Editar Docente</h3>
-            <form action="{% url 'procesarEdicion' %}" method="post">
+            <form action="{% url 'procesar_edicion_docente' docente.id %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="id" value="{{ docente.id }}">
 
@@ -30,7 +30,7 @@
 
                 <div class="d-flex justify-content-center gap-3">
                     <button type="submit" class="btn btn-outline-primary">Guardar Cambios</button>
-                    <a href="{% url 'lista' %}" class="btn btn-outline-danger">Cancelar</a>
+                    <a href="{% url 'lista_docentes' %}" class="btn btn-outline-danger">Cancelar</a>
                 </div>
             </form>
         </div>

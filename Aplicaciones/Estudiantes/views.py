@@ -56,7 +56,7 @@ def editarEstudiante(request, id):
     return render(request, "estudiante/editar.html", {"estudiante": estudiante})
 
 # Procesar edición de estudiante
-def procesarEdicionEstudiante(request):
+def procesarEdicionEstudiante(request, id):
 
     id = request.POST.get("id")
     nombres = request.POST.get("nombres")

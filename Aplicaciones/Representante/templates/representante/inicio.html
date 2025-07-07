@@ -24,7 +24,7 @@
     <h1 class="text-center mb-4">Listado de Representantes</h1>
 
     <div class="text-end mb-3">
-        <a href="{% url 'nuevo' %}" class="btn btn-outline-success">Agregar Representante</a>
+        <a href="{% url 'nuevo_representante' %}" class="btn btn-outline-success">Agregar Representante</a>
     </div>
 
     <table class="table table-bordered table-striped table-hover">
@@ -51,8 +51,8 @@
                 <td>{{ representante.telefono }}</td>
                 <td>{{ representante.correo }}</td>
                 <td>
-                    <a href="{% url 'editar' representante.id %}" class="btn btn-outline-warning btn-sm">Editar</a>
-                    <a href="{% url 'eliminar' representante.id %}" class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar este representante?');">Eliminar</a>
+                    <a href="{% url 'editar_representante' representante.id %}" class="btn btn-outline-warning btn-sm">Editar</a>
+                    <a href="{% url 'eliminar_representante' representante.id %}" class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar este representante?');">Eliminar</a>
                 </td>
             </tr>
             {% empty %}

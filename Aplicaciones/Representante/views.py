@@ -53,7 +53,7 @@ def editarRepresentante(request, id):
     })
 
 # Procesar edición de representante
-def procesarEdicionRepresentante(request):
+def procesarEdicionRepresentante(request, id):
     id = request.POST.get("id")
     estudiante_id = request.POST.get("estudiante_id")
     nombres = request.POST.get("nombres")
