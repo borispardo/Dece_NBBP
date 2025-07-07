@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'Aplicaciones.Estudiantes',
     'Aplicaciones.Docentes',
     'Aplicaciones.Representante',
+    'Aplicaciones.CasosIntervencion',
+
 ]
 
 MIDDLEWARE = [
