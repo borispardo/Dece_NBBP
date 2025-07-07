@@ -24,5 +24,6 @@ urlpatterns = [
     path('', lambda request: redirect('estudiantes/')),
     path('estudiantes/', include('Aplicaciones.Estudiantes.urls')),
     path('docentes/', include('Aplicaciones.Docentes.urls')),
+    path('representante/', include('Aplicaciones.Representante.urls')),
 
 ]

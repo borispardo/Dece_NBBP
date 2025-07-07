@@ -1,0 +1,55 @@
+{% extends "plantilla.html" %}
+
+{% block contenido %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8 col-lg-6">
+        <div class="bg-white p-4 rounded shadow-sm border" style="border-color: #dee2e6;">
+            <h3 class="text-center mb-4">Editar Representante</h3>
+            <form action="{% url 'procesarEdicion' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ representante.id }}">
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Estudiante</label>
+                    <select name="estudiante_id" class="form-control" required>
+                        <option value="">Seleccione...</option>
+                        {% for estudiante in estudiantes %}
+                        <option value="{{ estudiante.id }}" {% if estudiante.id == representante.estudiante.id %}selected{% endif %}>{{ estudiante.nombres }} {{ estudiante.apellidos }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Nombres</label>
+                    <input type="text" name="nombres" class="form-control" value="{{ representante.nombres }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Apellidos</label>
+                    <input type="text" name="apellidos" class="form-control" value="{{ representante.apellidos }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Parentesco</label>
+                    <input type="text" name="parentesco" class="form-control" value="{{ representante.parentesco }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Telefono</label>
+                    <input type="text" name="telefono" class="form-control" value="{{ representante.telefono }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Correo</label>
+                    <input type="email" name="correo" class="form-control" value="{{ representante.correo }}" required>
+                </div>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <button type="submit" class="btn btn-outline-primary">Guardar Cambios</button>
+                    <a href="{% url 'lista' %}" class="btn btn-outline-danger">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

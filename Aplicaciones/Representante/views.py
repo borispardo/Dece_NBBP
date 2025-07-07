@@ -32,16 +32,16 @@ def guardarRepresentante(request):
         )
 
         messages.success(request, "Representante GUARDADO correctamente.")
-        return redirect('/representantes/')
+        return redirect('/representante/')
     else:
-        return redirect('/representantes/nuevo/')
+        return redirect('/representante/nuevo/')
 
 # Eliminar representante
 def eliminarRepresentante(request, id):
     representante = Representante.objects.get(id=id)
     representante.delete()
     messages.success(request, "Representante ELIMINADO correctamente.")
-    return redirect('/representantes/')
+    return redirect('/representante/')
 
 # Mostrar formulario para editar representante
 def editarRepresentante(request, id):
@@ -72,4 +72,4 @@ def procesarEdicionRepresentante(request):
 
     representante.save()
     messages.success(request, "Representante EDITADO correctamente.")
-    return redirect('/representantes/')
+    return redirect('/representante/')
