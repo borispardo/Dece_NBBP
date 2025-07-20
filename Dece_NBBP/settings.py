@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'Aplicaciones.Docentes',
     'Aplicaciones.Representante',
     'Aplicaciones.CasosIntervencion',
+    'Aplicaciones.InformePsicopedagogico',
 
 ]
 
