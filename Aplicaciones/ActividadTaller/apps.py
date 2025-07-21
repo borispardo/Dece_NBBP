@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class TalleresgrupalesConfig(AppConfig):
+class ActividadTallerConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'TalleresGrupales'
+    name = 'Aplicaciones.ActividadTaller'

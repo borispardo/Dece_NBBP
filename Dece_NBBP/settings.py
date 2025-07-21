@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'Aplicaciones.Citas',
     'Aplicaciones.Diagnosticos',
     'Aplicaciones.PAI',
+    'Aplicaciones.ActividadTaller',
 
 
 ]
