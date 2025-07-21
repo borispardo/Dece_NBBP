@@ -15,15 +15,31 @@ def nuevoUsuario(request):
 # Guardar
 def guardarUsuario(request):
     if request.method == 'POST':
+        id = request.POST.get('id')
         nombre = request.POST.get('nombre')
         rol = request.POST.get('rol')
         correo = request.POST.get('correo')
-        clave = make_password(request.POST.get('clave'))
+        clave = request.POST.get('clave')
 
-        Usuario.objects.create(nombre=nombre, rol=rol, correo=correo, clave=clave)
-        messages.success(request, "Usuario registrado correctamente.")
+        if id:  # editar
+            usuario = get_object_or_404(Usuario, id=id)
+            usuario.nombre = nombre
+            usuario.rol = rol
+            usuario.correo = correo
+            if clave:
+                usuario.clave = clave
+            usuario.save()
+            messages.success(request, 'Usuario actualizado correctamente.')
+        else:  # nuevo
+            Usuario.objects.create(
+                nombre=nombre,
+                rol=rol,
+                correo=correo,
+                clave=make_password
+            )
+            messages.success(request, 'Usuario creado correctamente.')
+
         return redirect('/usuarios/')
-    return redirect('/usuarios/nuevo/')
 
 # Eliminar
 def eliminarUsuario(request, id):

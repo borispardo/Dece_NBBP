@@ -1,0 +1,48 @@
+{% extends 'plantilla.html' %}
+{% block contenido %}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8 col-lg-6">
+        <div class="bg-white p-4 rounded shadow-sm border">
+            <h3 class="text-center mb-4">Editar Usuario</h3>
+
+            <form action="{% url 'guardar_usuario' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ usuario.id }}">
+
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre de Usuario</label>
+                    <input type="text" name="nombre" class="form-control" value="{{ usuario.nombre }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="rol" class="form-label">Rol</label>
+                    <select name="rol" class="form-select" required>
+                        <option value="">Seleccione un rol</option>
+                        <option value="Administrador" {% if usuario.rol == 'Administrador' %}selected{% endif %}>Administrador</option>
+                        <option value="Psicólogo" {% if usuario.rol == 'Psicólogo' %}selected{% endif %}>Psicólogo</option>
+                        <option value="Orientador" {% if usuario.rol == 'Orientador' %}selected{% endif %}>Orientador</option>
+                        <option value="Docente" {% if usuario.rol == 'Docente' %}selected{% endif %}>Docente</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="correo" class="form-label">Correo</label>
+                    <input type="email" name="correo" class="form-control" value="{{ usuario.correo }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña (dejar en blanco si no desea cambiarla)</label>
+                    <input type="password" name="password" class="form-control">
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-outline-primary">Guardar Cambios</button>
+                    <a href="{% url 'lista_usuarios' %}" class="btn btn-outline-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

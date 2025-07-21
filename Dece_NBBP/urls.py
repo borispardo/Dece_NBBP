@@ -31,4 +31,5 @@ urlpatterns = [
     path('diagnosticos/', include('Aplicaciones.Diagnosticos.urls')),
     path('pai/', include('Aplicaciones.PAI.urls')),
     path('talleres/', include('Aplicaciones.ActividadTaller.urls')),
+    path('usuarios/', include('Aplicaciones.Usuario.urls')),
 ]
