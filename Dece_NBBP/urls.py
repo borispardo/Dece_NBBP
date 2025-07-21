@@ -28,5 +28,6 @@ urlpatterns = [
     path('casos/', include('Aplicaciones.CasosIntervencion.urls')),
     path('informes/', include('Aplicaciones.InformePsicopedagogico.urls')),
     path('citas/', include('Aplicaciones.Citas.urls')),
+    path('diagnosticos/', include('Aplicaciones.Diagnosticos.urls')),
 
 ]
