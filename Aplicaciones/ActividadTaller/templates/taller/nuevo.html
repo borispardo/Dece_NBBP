@@ -1,0 +1,33 @@
+{% extends 'plantilla.html' %}
+{% block contenido %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8 col-lg-6">
+        <div class="bg-white p-4 rounded shadow-sm border" style="border-color: #dee2e6;">
+            <h3 class="text-center mb-4">Nuevo Taller</h3>
+            <form action="{% url 'guardar_taller' %}" method="post">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="nombre" class="form-label fw-bold">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="fecha" class="form-label fw-bold">Fecha</label>
+                    <input type="date" name="fecha" id="fecha" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label fw-bold">Descripción</label>
+                    <textarea name="descripcion" id="descripcion" class="form-control" rows="3" required></textarea>
+                </div>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <button type="submit" class="btn btn-outline-primary">Guardar</button>
+                    <a href="{% url 'lista_talleres' %}" class="btn btn-outline-danger">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

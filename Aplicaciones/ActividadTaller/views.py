@@ -35,17 +35,19 @@ def editarTaller(request, id):
     return render(request, 'taller/editar.html', {"taller": taller})
 
 # Procesar edición
-def procesarEdicionTaller(request):
-    id = request.POST.get("id")
+def procesarEdicionTaller(request, id):
     taller = get_object_or_404(ActividadTaller, id=id)
 
-    taller.nombre = request.POST.get("nombre")
-    taller.fecha = request.POST.get("fecha")
-    taller.descripcion = request.POST.get("descripcion")
-
-    taller.save()
-    messages.success(request, "Taller EDITADO correctamente.")
-    return redirect('/talleres/')
+    if request.method == "POST":
+        taller.nombre = request.POST.get("nombre")
+        taller.fecha = request.POST.get("fecha")
+        taller.descripcion = request.POST.get("descripcion")
+        taller.save()
+        messages.success(request, "Taller EDITADO correctamente.")
+        return redirect('/talleres/')
+    else:
+        # Si alguien accede con GET, lo rediriges
+        return redirect('/talleres/')
 
 # Eliminar actividad
 def eliminarTaller(request, id):
