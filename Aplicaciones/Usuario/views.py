@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from .models import Usuario
-from django.contrib.auth.hashers import make_password
 from django.contrib import messages
+from django.contrib.auth.hashers import check_password, make_password
 
 # Lista
 def listaUsuarios(request):
@@ -27,7 +27,7 @@ def guardarUsuario(request):
             usuario.rol = rol
             usuario.correo = correo
             if clave:
-                usuario.clave = clave
+                usuario.clave = make_password(clave)
             usuario.save()
             messages.success(request, 'Usuario actualizado correctamente.')
         else:  # nuevo
@@ -35,7 +35,7 @@ def guardarUsuario(request):
                 nombre=nombre,
                 rol=rol,
                 correo=correo,
-                clave=make_password
+                clave=make_password(clave)
             )
             messages.success(request, 'Usuario creado correctamente.')
 
@@ -71,3 +71,37 @@ def procesarEdicionUsuario(request):
         messages.success(request, "Usuario editado correctamente.")
         return redirect('/usuarios/')
     return redirect('/usuarios/')
+
+def loginUsuario(request):
+    if request.method == "POST":
+        correo = request.POST.get("correo")
+        clave = request.POST.get("clave")
+        try:
+            usuario = Usuario.objects.get(correo=correo)
+            if check_password(clave, usuario.clave):
+                request.session['usuario_id'] = usuario.id
+                request.session['usuario_nombre'] = usuario.nombre
+                request.session['usuario_rol'] = usuario.rol
+                messages.success(request, "Bienvenido " + usuario.nombre)
+                return redirect('dashboard')
+            else:
+                messages.error(request, "Contraseña incorrecta.")
+        except Usuario.DoesNotExist:
+            messages.error(request, "El correo no existe.")
+
+    return render(request, "usuarios/login.html")
+
+def dashboard(request):
+    rol = request.session.get('usuario_rol')
+    nombre = request.session.get('usuario_nombre')
+
+    if not rol:
+        return redirect('login')  # si no hay sesión, redirige al login
+
+    return render(request, 'usuarios/dashboard.html', {'rol': rol, 'nombre': nombre})
+
+def logoutUsuario(request):
+    request.session.flush()
+    messages.success(request, "Sesión cerrada correctamente.")
+    return redirect('login')
+

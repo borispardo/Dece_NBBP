@@ -1,0 +1,8 @@
+<h2>Bienvenido, {{ nombre }}</h2>
+<p>Tu rol es: {{ rol }}</p>
+
+{% if rol == "Administrador" %}
+    <a href="{% url 'lista_usuarios' %}">Ir al CRUD de usuarios</a><br>
+{% endif %}
+
+<a href="{% url 'logout' %}">Cerrar Sesión</a>
