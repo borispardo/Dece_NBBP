@@ -1,6 +1,3 @@
-from django.shortcuts import render
-
-
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import PAI
 from Aplicaciones.Estudiantes.models import Estudiante
@@ -8,13 +5,13 @@ from django.contrib import messages
 
 # Lista
 def listaPais(request):
-    pais = PAI.objects.all()
-    return render(request, 'pais/inicio.html', {'pais': pais})
+    pai = PAI.objects.all()
+    return render(request, 'pai/inicio.html', {'pai': pai})
 
 # Formulario nuevo
 def nuevoPAI(request):
     estudiantes = Estudiante.objects.all()
-    return render(request, 'pais/nuevo.html', {'estudiantes': estudiantes})
+    return render(request, 'pai/nuevo.html', {'estudiantes': estudiantes})
 
 # Guardar
 def guardarPAI(request):
@@ -33,21 +30,21 @@ def guardarPAI(request):
             acciones=acciones
         )
         messages.success(request, "PAI registrado correctamente.")
-        return redirect('/pais/')
-    return redirect('/pais/nuevo/')
+        return redirect('/pai/')
+    return redirect('/pai/nuevo/')
 
 # Eliminar
 def eliminarPAI(request, id):
     pai = get_object_or_404(PAI, id=id)
     pai.delete()
     messages.success(request, "PAI eliminado correctamente.")
-    return redirect('/pais/')
+    return redirect('/pai/')
 
 # Editar
 def editarPAI(request, id):
     pai = get_object_or_404(PAI, id=id)
     estudiantes = Estudiante.objects.all()
-    return render(request, 'pais/editar.html', {
+    return render(request, 'pai/editar.html', {
         'pai': pai,
         'estudiantes': estudiantes
     })
@@ -66,5 +63,5 @@ def procesarEdicionPAI(request):
         pai.save()
 
         messages.success(request, "PAI editado correctamente.")
-        return redirect('/pais/')
-    return redirect('/pais/')
+        return redirect('/pai/')
+    return redirect('/pai/')
