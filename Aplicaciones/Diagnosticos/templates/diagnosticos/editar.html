@@ -1,0 +1,80 @@
+{% extends 'plantilla.html' %}
+{% block contenido %}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8 col-lg-6">
+        <div class="bg-white p-4 rounded shadow-sm border">
+            <h3 class="text-center mb-4">Editar Diagnóstico</h3>
+            <form action="{% url 'procesar_edicion_diagnostico' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ diagnostico.id }}">
+
+                <div class="mb-3">
+                    <label for="estudiante" class="form-label fw-bold">Estudiante</label>
+                    <select id="estudiante" name="estudiante_id" class="form-select" required>
+                        <option value="">Seleccione...</option>
+                        {% for estudiante in estudiantes %}
+                        <option value="{{ estudiante.id }}"
+                            {% if estudiante.id == diagnostico.estudiante.id %}selected{% endif %}>
+                            {{ estudiante.nombres }} {{ estudiante.apellidos }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="tipo" class="form-label fw-bold">Tipo</label>
+                    <select id="tipo" name="tipo" class="form-select" required onchange="mostrarOtroCampo()">
+                        <option value="">Seleccione tipo de diagnóstico</option>
+                        <option value="Académico" {% if diagnostico.tipo == "Académico" %}selected{% endif %}>Académico</option>
+                        <option value="Emocional" {% if diagnostico.tipo == "Emocional" %}selected{% endif %}>Emocional</option>
+                        <option value="Familiar" {% if diagnostico.tipo == "Familiar" %}selected{% endif %}>Familiar</option>
+                        <option value="Social" {% if diagnostico.tipo == "Social" %}selected{% endif %}>Social</option>
+                        <option value="Conductual" {% if diagnostico.tipo == "Conductual" %}selected{% endif %}>Conductual</option>
+                        <option value="Otro" {% if diagnostico.tipo != "Académico" and diagnostico.tipo != "Emocional" and diagnostico.tipo != "Familiar" and diagnostico.tipo != "Social" and diagnostico.tipo != "Conductual" %}selected{% endif %}>Otro</option>
+                    </select>
+                </div>
+
+                <div class="mb-3" id="campo_otro_tipo" style="display: none;">
+                    <label for="otro_tipo" class="form-label fw-bold">Especifique el tipo</label>
+                    <input type="text" id="otro_tipo" name="otro_tipo" class="form-control" 
+                           value="{% if diagnostico.tipo not in 'Académico Emocional Familiar Social Conductual' %}{{ diagnostico.tipo }}{% endif %}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label fw-bold">Descripción</label>
+                    <textarea id="descripcion" name="descripcion" class="form-control" rows="5" required>{{ diagnostico.descripcion }}</textarea>
+                </div>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <button type="submit" class="btn btn-outline-primary">Guardar</button>
+                    <a href="{% url 'lista_diagnosticos' %}" class="btn btn-outline-danger">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function mostrarOtroCampo() {
+        const tipoSelect = document.getElementById('tipo');
+        const otroCampo = document.getElementById('campo_otro_tipo');
+        const otroInput = document.getElementById('otro_tipo');
+
+        if (tipoSelect.value === 'Otro') {
+            otroCampo.style.display = 'block';
+            otroInput.required = true;
+        } else {
+            otroCampo.style.display = 'none';
+            otroInput.required = false;
+            otroInput.value = '';
+        }
+    }
+
+    // Mostrar el campo al cargar si el tipo no es uno de los predeterminados
+    window.onload = function() {
+        mostrarOtroCampo();
+    };
+</script>
+
+{% endblock %}

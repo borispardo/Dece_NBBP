@@ -18,7 +18,11 @@ def guardarDiagnostico(request):
     if request.method == 'POST':
         estudiante_id = request.POST.get('estudiante_id')
         tipo = request.POST.get('tipo')
+        otro_tipo = request.POST.get('otro_tipo', '').strip()
         descripcion = request.POST.get('descripcion')
+
+        if tipo == 'Otro' and otro_tipo:
+            tipo = otro_tipo
 
         Diagnostico.objects.create(
             estudiante_id=estudiante_id,
@@ -51,8 +55,14 @@ def procesarEdicionDiagnostico(request):
         id = request.POST.get('id')
         diagnostico = get_object_or_404(Diagnostico, id=id)
 
+        tipo = request.POST.get('tipo')
+        otro_tipo = request.POST.get('otro_tipo', '').strip()
+
+        if tipo == 'Otro' and otro_tipo:
+            tipo = otro_tipo
+
         diagnostico.estudiante_id = request.POST.get('estudiante_id')
-        diagnostico.tipo = request.POST.get('tipo')
+        diagnostico.tipo = tipo
         diagnostico.descripcion = request.POST.get('descripcion')
         diagnostico.save()
 

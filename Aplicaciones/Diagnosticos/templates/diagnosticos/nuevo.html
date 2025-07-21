@@ -5,19 +5,22 @@
     <div class="col-md-8 col-lg-6">
         <div class="bg-white p-4 rounded shadow-sm border">
             <h3 class="text-center mb-4">Registrar Nuevo Diagnóstico</h3>
+
             <form action="{% url 'guardar_diagnostico' %}" method="post">
                 {% csrf_token %}
 
+                <!-- Estudiante -->
                 <div class="mb-3">
                     <label for="estudiante" class="form-label fw-bold">Estudiante</label>
                     <select id="estudiante" name="estudiante_id" class="form-select" required>
                         <option value="">Seleccione...</option>
                         {% for estudiante in estudiantes %}
-                        <option value="{{ estudiante.id }}">{{ estudiante.nombres }} {{ estudiante.apellidos }}</option>
+                            <option value="{{ estudiante.id }}">{{ estudiante.nombres }} {{ estudiante.apellidos }}</option>
                         {% endfor %}
                     </select>
                 </div>
 
+                <!-- Tipo de diagnóstico -->
                 <div class="mb-3">
                     <label for="tipo" class="form-label fw-bold">Tipo</label>
                     <select id="tipo" name="tipo" class="form-select" required onchange="mostrarOtroCampo()">
@@ -31,16 +34,19 @@
                     </select>
                 </div>
 
+                <!-- Campo adicional si se elige "Otro" -->
                 <div class="mb-3" id="campo_otro_tipo" style="display: none;">
                     <label for="otro_tipo" class="form-label fw-bold">Especifique el tipo</label>
                     <input type="text" id="otro_tipo" name="otro_tipo" class="form-control">
                 </div>
 
+                <!-- Descripción -->
                 <div class="mb-3">
                     <label for="descripcion" class="form-label fw-bold">Descripción</label>
                     <textarea id="descripcion" name="descripcion" class="form-control" rows="5" required></textarea>
                 </div>
 
+                <!-- Botones -->
                 <div class="d-flex justify-content-center gap-3">
                     <button type="submit" class="btn btn-outline-primary">Guardar</button>
                     <a href="{% url 'lista_diagnosticos' %}" class="btn btn-outline-danger">Cancelar</a>
@@ -50,17 +56,20 @@
     </div>
 </div>
 
+<!-- Script para mostrar/ocultar campo "Otro" -->
 <script>
     function mostrarOtroCampo() {
         const tipoSelect = document.getElementById('tipo');
         const otroCampo = document.getElementById('campo_otro_tipo');
+        const inputOtro = document.getElementById('otro_tipo');
+
         if (tipoSelect.value === 'Otro') {
             otroCampo.style.display = 'block';
-            document.getElementById('otro_tipo').required = true;
+            inputOtro.required = true;
         } else {
             otroCampo.style.display = 'none';
-            document.getElementById('otro_tipo').required = false;
-            document.getElementById('otro_tipo').value = '';
+            inputOtro.required = false;
+            inputOtro.value = '';
         }
     }
 </script>
