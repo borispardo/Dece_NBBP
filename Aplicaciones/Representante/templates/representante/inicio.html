@@ -54,6 +54,7 @@
                 <td>
                     <a href="{% url 'editar_representante' representante.id %}" class="btn btn-outline-warning btn-sm">Editar</a>
                     <a href="{% url 'eliminar_representante' representante.id %}" class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar este representante?');">Eliminar</a>
+                    <a href="{% url 'enviar_correo_representante' representante.id %}" class="btn btn-outline-success btn-sm">Enviar Correo</a>
                 </td>
             </tr>
             {% empty %}

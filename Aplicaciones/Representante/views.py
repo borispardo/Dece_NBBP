@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Representante, Estudiante
 from django.contrib import messages
+from .models import Representante, Estudiante
+from django.core.mail import EmailMessage
+from django.conf import settings
+import mimetypes
+
 
 # Listar representantes
 def listaRepresentantes(request):
@@ -73,3 +77,33 @@ def procesarEdicionRepresentante(request, id):
     representante.save()
     messages.success(request, "Representante EDITADO correctamente.")
     return redirect('/representante/')
+
+
+# Enviar correo al representante
+
+def enviar_representante(request, id):
+    representante = get_object_or_404(Representante, id=id)
+
+    if request.method == "POST":
+        asunto = request.POST.get("asunto")
+        mensaje = request.POST.get("mensaje")
+        archivo = request.FILES.get("archivo")
+
+        email = EmailMessage(
+            subject=asunto,
+            body=mensaje,
+            from_email=settings.EMAIL_HOST_USER,
+            to=[representante.correo],
+        )
+
+        if archivo:
+            tipo_archivo, _ = mimetypes.guess_type(archivo.name)
+            email.attach(archivo.name, archivo.read(), tipo_archivo)
+
+        email.send(fail_silently=False)
+        messages.success(request, "Correo ENVIADO exitosamente.")
+        return redirect('lista_representantes')
+
+    return render(request, 'representante/enviar.html', {
+        'representante': representante
+    })
