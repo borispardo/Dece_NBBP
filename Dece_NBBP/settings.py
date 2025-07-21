@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'Aplicaciones.InformePsicopedagogico',
     'Aplicaciones.Citas',
     'Aplicaciones.Diagnosticos',
+    'Aplicaciones.PAI',
 
 
 ]

@@ -29,5 +29,5 @@ urlpatterns = [
     path('informes/', include('Aplicaciones.InformePsicopedagogico.urls')),
     path('citas/', include('Aplicaciones.Citas.urls')),
     path('diagnosticos/', include('Aplicaciones.Diagnosticos.urls')),
-
+    path('pai/', include('Aplicaciones.PAI.urls')),
 ]
